@@ -3,7 +3,7 @@ import { AuthModule } from '@auth0/auth0-angular';
 import { Auth0Client } from '@auth0/auth0-spa-js';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
-import { environment } from './../..//environments/environment';
+import { environment } from 'src/environments/environment';
 import { catchError, map } from 'rxjs/operators';
 
 
