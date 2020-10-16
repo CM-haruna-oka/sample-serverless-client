@@ -18,14 +18,15 @@ import { HomeComponent } from './components/pages/home/home.component';
     AuthModule.forRoot({
       domain: environment.AUTH0_DOMAIN,
       clientId: environment.AUTH0_CLIENT_ID,
-      useRefreshTokens: true,
-      audience: environment.API_DOMAIN,
+      // useRefreshTokens: true,
+      audience: environment.AUDIENCE,
+      redirectUri: `${window.location.origin}`,
       httpInterceptor: {
         allowedList: [
           {
-            uri: `${environment.API_DOMAIN}/*`,
+            uri: `${environment.API_URL}/*`,
             tokenOptions: {
-              audience: environment.API_DOMAIN,
+              audience: environment.AUDIENCE,
             },
           },
         ],

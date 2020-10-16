@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AuthModule } from '@auth0/auth0-angular';
+import { AuthModule, AuthService } from '@auth0/auth0-angular';
 import { Auth0Client } from '@auth0/auth0-spa-js';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
@@ -8,8 +8,9 @@ import { catchError, map } from 'rxjs/operators';
 
 
 interface Item {
-  item_id: string,
+  item_id: string
   item_name: string
+  category: string
 }
 
 @Injectable({
@@ -17,14 +18,18 @@ interface Item {
 })
 export class ApiService {
 
-  constructor(private http: HttpClient) { }
+  constructor(public auth: AuthService, private http: HttpClient) { }
 
   listItem(): Observable<Item[]> {
-    const url = `${environment.API_DOMAIN}/item`;
+    const url = `${environment.API_URL}/items`;
     return this.http.get<any>(url).pipe(
       map(data => data.items),
       catchError(this.handleError<any>('listItem', []))
     );
+  }
+
+  getUserInfo(): Observable<any> {
+    return this.auth.user$
   }
 
   /**
